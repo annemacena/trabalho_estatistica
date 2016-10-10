@@ -5,6 +5,9 @@ var index = 0;
 var count = 0;
 
 $('.login-form').on('submit', function(e) {
+
+    e.preventDefault();
+
     if (count < 15) {
         adjustTime();
         equalizeTime();
@@ -32,7 +35,8 @@ $('.login-form').on('submit', function(e) {
                         url: "login/Session.php",
                         data: { dados: dados },
                         type: 'POST',
-                        success: function() {
+                        success: function(data) {
+                            alert(data);
                             window.location = "painel.php";
                         },
                         error: function(data) {
@@ -58,7 +62,6 @@ $('.login-form').on('submit', function(e) {
             }
         });
     }
-    e.preventDefault();
 });
 
 function registerKey(event) {

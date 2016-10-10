@@ -9,8 +9,6 @@
       header("location:index.php");
    }
 
-$saida;
-
 include("login/Config.php");
 ?>
 <html>   
@@ -27,7 +25,7 @@ include("login/Config.php");
         <link rel="stylesheet" href="assets/css/style.css">
 		<link rel="stylesheet" href="assets/toastr/toastr.min.css">
    </head>   
-   <body style="background-color: white !important;">
+   <body>
     <div class="header">
         <div class="col-md-6">
             <h1>Olá, <?php echo $login_session; ?>!</h1> 
@@ -39,8 +37,11 @@ include("login/Config.php");
     <div>
             <form role="form" action="" method="get" class="registration-form">
             <button type="submit" name="link" value="2" class="btn">Tentativas</button>
-            <button type="submit" name="link" value ="1" class="btn">Média</button>
-            <button type="submit" name="link" value ="5" class="btn">Nada</button>
+            <button type="submit" name="link" value ="1" class="btn">Estatística</button>
+            <button type="submit" name="link" value ="5" class="btn">#</button>
+            <button type="submit" name="link" value ="5" class="btn">#</button>
+            <button type="submit" name="link" value ="5" class="btn">#</button>
+            <button type="submit" name="link" value ="5" class="btn">#</button>
 		</form>    
     </div>
 
@@ -55,10 +56,8 @@ include("login/Config.php");
                 include("statistic/Calculus.php");
             } elseif ($link == 2) {
                 include("statistic/attempts.php");
-            } elseif ($link == 3) {
-            
             } else {
-                echo "<p>Some text about link 1</p>";
+                echo "<p>Reservado :3</p>";
             } 
         ?>
 

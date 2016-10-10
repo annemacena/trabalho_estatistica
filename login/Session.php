@@ -13,9 +13,10 @@ include("Config.php");
 	$data = $_POST['dados'];
 	$things = '';
 				$sql = "UPDATE tb_usuario SET hasSimulated = 1 WHERE id_usuario = '$id_user';";
-				mysqli_query($db,$sql);
+				mysqli_query($db,$sql) or die(mysqli_error($db));
 
 				$sql = '';
+				$i = 1;
 				for ($row = 1; $row < 15; $row++) {
 					for ($col = 0; $col < 5; $col++) {
 						$time = $data[$row][$col];
@@ -24,6 +25,11 @@ include("Config.php");
 					$i++;	
 									
 				}
-				mysqli_multi_query($db,$sql);
-			
+				$result = mysqli_multi_query($db,$sql) or die(mysqli_error($db));
+
+				if($result){
+					echo mysqli_error($db);
+				}	else {
+					echo ":)";
+				}	
 ?>

@@ -1,48 +1,49 @@
 <?php      
-$media = '';
-$var = 0;
- for($i = 1; $i < 16; $i++){
-        $sql = "SELECT tempo FROM tb_tempo_digitacao WHERE id_tentativa = '$i'";
+$media = ''; //média
+$var = 0; //variância
+$sum = 0; //variável auxiliar pra soma
+$sumAttempts = []; //array de soma de tentativas
+$j = 0; //indice pra verificar quando muda de tentativa
+
+ $sql = "SELECT tempo FROM tb_tempo_digitacao WHERE id_usuario = '$id_user';";
             $result = mysqli_query($db, $sql) or die(mysqli_error($db));
                 if (mysqli_num_rows($result) > 0) {
-                    $sum = 0;
-                   // $array = [];
-                    $j = 0;
-                    $j2 = 0;
                     while($row = mysqli_fetch_array($result)) {     
 
                         if($j == 5){
                            $j=0;
 
-                           //array_push($array, $sum); //tamanho do array depende da qtd de users
+                          array_push($sumAttempts, $sum); //tamanho do array depende da qtd de tentativas
 
                            $j++;
-
-                           $j2++;
-                        } else {
-                            
+                        } else {                            
                             $j++;                          
                         }  
 
-                        $sum .= $row["tempo"];
+                        $sum += $row["tempo"];
                     }
-                           // foreach ($array as $index) {
-                           //      $var .= pow($index - $sum, 2);
-                          //  }
 
-                     $media .= "<tr><th scope='row'>$i</th><td>" .$sum."s</td></tr>";
-                     //$media .= "<tr><th scope='row'>$i</th><td>" .($var/$j2)."s</td></tr>";
+                    $sum = $sum/15;
+
+                            foreach ($sumAttempts as $index) {
+                                 $var += pow($index - $sum, 2);
+                            }
+
+                     $var = $var/15;    
+
+                     $media .= "<tr><td>" .$sum."</td>";
+                     $media .= "<td>" .$var."</td>";
+                     $media .= "<td>" .sqrt($var)."</td></tr>";
 
                 } else {
-                    echo "Ocorreu um erro.";
+                    echo mysqli_error($db);
                 }  
-    } 
 ?>
 <?php
              echo "<div><table class='table'><thead><tr>";
-                       echo  "<th>Tentativas</th>";
                        echo  "<th>Média</th>";
                        echo  "<th>Variância</th>";
+                       echo  "<th>Desvio Padrão</th>";
                        echo  "</tr></thead><tbody>";
                        echo $media;
                        echo "</tbody></table>";

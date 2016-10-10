@@ -2,8 +2,8 @@
 if(!isset($_SESSION))
     session_start();
 
-if(isset($_SESSION['loggedUser'])!="") {
-    header("Location: index.php");
+if(isset($_SESSION['loggedUser'])) {
+    header("Location: painel.php");
 }
 
 include("login/Config.php");
