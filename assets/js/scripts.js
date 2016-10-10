@@ -23,13 +23,16 @@ $('.login-form').on('submit', function(e) {
             success: function(data) {
                 if (data == "404") {
                     toastr.error("Dados incorretos!");
+                    $('#form-username').val('');
+                    $('#form-password').val('');
+                    $("#form-username").focus();
                 } else if (data == '201') {
 
                     $.ajax({
                         url: "login/Session.php",
                         data: { dados: dados },
                         type: 'POST',
-                        success: function(data) {
+                        success: function() {
                             window.location = "painel.php";
                         },
                         error: function(data) {
@@ -58,11 +61,17 @@ $('.login-form').on('submit', function(e) {
     e.preventDefault();
 });
 
-function registerKey(e) {
-    if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 96 && event.keyCode <= 105)) {
-        d = new Date()
-        arrayTemp[index] = d.getMinutes() * 60 + d.getSeconds() + d.getMilliseconds() / 1000
-        index++
+function registerKey(event) {
+    if (event.keyCode == 46 || event.keyCode == 8) {
+        $('#form-password').val('');
+        arrayTemp = new Array();
+        index = 0;
+    } else if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 96 && event.keyCode <= 105)) {
+        if (arrayTemp.length < 5) {
+            d = new Date()
+            arrayTemp[index] = d.getMinutes() * 60 + d.getSeconds() + d.getMilliseconds() / 1000
+            index++
+        }
     }
 }
 
