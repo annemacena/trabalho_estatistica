@@ -9,6 +9,7 @@ var count = 0;
 $('.login-form').on('submit', function(e) {
 
     e.preventDefault();
+    $(".btn-login").prop("disabled", true);
 
     if (count < 15) {
         adjustTime();
@@ -32,6 +33,8 @@ $('.login-form').on('submit', function(e) {
                     $('#form-password').val('');
                     $("#form-username").focus();
                     erros++;
+                    $(".btn-login").prop("disabled", false);
+                    return false;
                 } else if (data == '201') {
 
                     $.ajax({
@@ -44,6 +47,8 @@ $('.login-form').on('submit', function(e) {
                         },
                         error: function(data) {
                             alert(data);
+                            $(".btn-login").prop("disabled", false);
+                            return false;
                         }
                     });
 
@@ -57,10 +62,13 @@ $('.login-form').on('submit', function(e) {
                     $("#form-username").focus();
 
                     toastr.info('Faltam ' + (15 - count) + ' tentativas.');
+                    $(".btn-login").prop("disabled", false);
+                    return false;
                 }
             },
             error: function(data) {
                 alert(data);
+                $(".btn-login").prop("disabled", false);
                 return false;
             }
         });

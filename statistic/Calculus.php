@@ -1,12 +1,12 @@
 <?php      
 $media = ''; //média
 $var = 0; //variância
-$sum = 0; //variável auxiliar pra soma
-$sumAttempts = []; //array de soma de tentativas
+$sum = 0; //variável auxiliar pra soma total
+$sumParcial = 0; //variável auxiliar pra soma
+$sumAttempts = array(); //array de soma de tentativas
 $j = 0; //variavel auxiliar
 $cv = 0; //coeficiente de variância
 $cvD = '';//descrição coeficiente de variância
-$median = 0;
 
  $sql = "SELECT tempo FROM tb_tempo_digitacao WHERE id_usuario = '$id_user';";
             $result = mysqli_query($db, $sql) or die(mysqli_error($db));
@@ -15,14 +15,16 @@ $median = 0;
 
                         if($j == 5){
                            $j=0;
-
-                          array_push($sumAttempts, $sum); //tamanho do array depende da qtd de tentativas
+                           
+                          $sumAttempts[] = $sumParcial;
+                          $sumParcial = 0;
 
                            $j++;
                         } else {                            
                             $j++;                          
                         }  
 
+                        $sumParcial += $row["tempo"];
                         $sum += $row["tempo"];
                     }
 
@@ -33,7 +35,7 @@ $median = 0;
                             }
 
                      $var = $var/15; 
-                     $cv =  (sqrt($var)/$sum);
+                     $cv =  (sqrt($var)/$sum) * 100;
 
                      if($cv <= 15)
                         $cvD = '% (Baixa Dispersão)';
@@ -42,18 +44,8 @@ $median = 0;
                      else
                          $cvD = '% (Alta Dispersão)';
 
-                        if(count($sumAttempts) % 2 == 0){
-                            $i = (int)((count($sumAttempts) - 1) / 2);
-                            $j = (int)((count($sumAttempts) + 1) / 2);
-
-                            $median = ($sumAttempts[$i] + $sumAttempts[$j])/2;
-                        } else {
-                            $j = (int)(count($sumAttempts) / 2);
-                            $median = $sumAttempts[$j];
-                        }
-
                      $media .= "<tr><td>" .$sum."</td>";
-                     $media .= "<td>" .$median."</td>";
+                     $media .= "<td>" .$sumAttempts[6]."</td>";
                      $media .= "<td>" .$var."</td>";
                      $media .= "<td>" .sqrt($var)."</td>";
                      $media .= "<td>" .$cv.' '.$cvD."</td></tr>";
@@ -72,4 +64,6 @@ $median = 0;
                        echo  "</tr></thead><tbody>";
                        echo $media;
                        echo "</tbody></table>";
+
+                       print_r($sumAttempts);
         ?>
