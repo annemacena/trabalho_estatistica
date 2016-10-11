@@ -4,28 +4,22 @@ $var = 0; //variância
 $sum = 0; //variável auxiliar pra soma total
 $sumParcial = 0; //variável auxiliar pra soma
 $sumAttempts = array(); //array de soma de tentativas
-$j = 0; //variavel auxiliar
 $cv = 0; //coeficiente de variância
 $cvD = '';//descrição coeficiente de variância
-
+$count = 0;//variavel auxiliar
  $sql = "SELECT tempo FROM tb_tempo_digitacao WHERE id_usuario = '$id_user';";
             $result = mysqli_query($db, $sql) or die(mysqli_error($db));
                 if (mysqli_num_rows($result) > 0) {
-                    while($row = mysqli_fetch_array($result)) {     
-
-                        if($j == 5){
-                           $j=0;
-                           
+                    while($row = mysqli_fetch_array($result)) {  
+                        
+                        if($count % 5 == 0){
                           $sumAttempts[] = $sumParcial;
                           $sumParcial = 0;
-
-                           $j++;
-                        } else {                            
-                            $j++;                          
-                        }  
+                        }
 
                         $sumParcial += $row["tempo"];
                         $sum += $row["tempo"];
+                        $count++;
                     }
 
                     $sum = $sum/15;
@@ -45,7 +39,7 @@ $cvD = '';//descrição coeficiente de variância
                          $cvD = '% (Alta Dispersão)';
 
                      $media .= "<tr><td>" .$sum."</td>";
-                     $media .= "<td>" .$sumAttempts[6]."</td>";
+                     $media .= "<td>" .$sumAttempts[7]."</td>";
                      $media .= "<td>" .$var."</td>";
                      $media .= "<td>" .sqrt($var)."</td>";
                      $media .= "<td>" .$cv.' '.$cvD."</td></tr>";
@@ -64,6 +58,4 @@ $cvD = '';//descrição coeficiente de variância
                        echo  "</tr></thead><tbody>";
                        echo $media;
                        echo "</tbody></table>";
-
-                       print_r($sumAttempts);
         ?>
