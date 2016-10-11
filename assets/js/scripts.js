@@ -1,5 +1,7 @@
-var dados = [];
+console.log('SUP GUYS');
 
+var dados = [];
+var erros = 0;
 var arrayTemp = new Array();
 var index = 0;
 var count = 0;
@@ -29,11 +31,12 @@ $('.login-form').on('submit', function(e) {
                     $('#form-username').val('');
                     $('#form-password').val('');
                     $("#form-username").focus();
+                    erros++;
                 } else if (data == '201') {
 
                     $.ajax({
                         url: "login/Session.php",
-                        data: { dados: dados },
+                        data: { dados: dados, errors: erros },
                         type: 'POST',
                         success: function(data) {
                             alert(data);
@@ -57,7 +60,7 @@ $('.login-form').on('submit', function(e) {
                 }
             },
             error: function(data) {
-                document.getElementById("resultdb").innerHTML = data;
+                alert(data);
                 return false;
             }
         });

@@ -3,6 +3,7 @@
 		   	
 			$username = mysqli_real_escape_string($db,$_POST['username']);
 			$password = mysqli_real_escape_string($db,$_POST['password']); 
+			$sex = mysqli_real_escape_string($db,$_POST['sex']); 
 
 			$sql = "SELECT id_usuario FROM tb_usuario WHERE username = '$username'";
 			$result = mysqli_query($db, $sql) or die(mysqli_error($db));
@@ -13,7 +14,8 @@
 			if($count == 1) {
 			   echo "<script> window.onload = function(){toastr.error('Opa, usuário já cadastradx!');} </script>";               
 			}else {			
-				$sql = "INSERT INTO tb_usuario (username, password, hasSimulated) VALUES ('$username', '$password', 0)";
+				$sql = "INSERT INTO tb_usuario (username, password, sex, hasSimulated, failedLogin) VALUES 
+				('$username', '$password', '$sex' , 0, null)";
 				$result = mysqli_query($db,$sql) or die(mysqli_error($db));
 						
 				if($result) {				

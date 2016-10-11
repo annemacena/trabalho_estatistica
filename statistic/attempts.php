@@ -5,11 +5,17 @@ $sql = "SELECT id_tentativa, tempo FROM tb_tempo_digitacao WHERE id_usuario = '$
                 if (mysqli_num_rows($result) > 0) { 
                     $i = 6;
                     $j = 0;
+                    $summ = 0;
                     while($row = mysqli_fetch_assoc($result)) {                      
                             if($i == 6){
-                                if($j == 1) $saida .= "</tbody></table></div></div>";
+                                if($j == 1) {
+                                   $saida .= "<tr><th scope='row'>Total</th><td>" . $summ."</td></tr>"; 
+                                   $saida .= "</tbody></table></div></div>";
+                                }
                                 $i = 1;
                                 $j = 1;
+                                $summ = 0;
+
                                 $saida .= "<div class='col-md-3'>";
                                 $saida .= "<div class='panel panel-default'>";
                                 $saida .= "<div class='panel-heading'>Tentativa ".$row["id_tentativa"]."</div>";
@@ -17,18 +23,18 @@ $sql = "SELECT id_tentativa, tempo FROM tb_tempo_digitacao WHERE id_usuario = '$
                                 $saida .= "<th>Qtd.</th>";
                                 $saida .= "<th>Tempo</th>";
                                 $saida .= "</tr></thead><tbody>";
-
-                                $i++;
                             } else {
-                                $saida .= "<tr><th scope='row'>$i</th><td>" . $row["tempo"]."s</td></tr>";
-                                $i++;
-                            }                       
+                                $saida .= "<tr><th scope='row'>$i</th><td>" . $row["tempo"]."</td></tr>";
+                                $summ += $row["tempo"];
+                            }  
+                         $i++;                     
                     }
                 } else {
                     echo "Ocorreu um erro.";
                 }  
 
-
+                        $saida .= "<tr><th scope='row'>Total</th><td>" . $summ."</td></tr>"; 
+                        $saida .= "</tbody></table></div></div>";
                         echo "<div>";
                         echo $saida;
                     ?>

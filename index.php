@@ -68,7 +68,7 @@ include("login/Register.php");
 												    id="form-password" onkeydown="registerKey(event)" required>
 											<input type="hidden" id="attempt" name="attempt" value="0">
 				                        </div>
-				                        <button type="submit" name="login" class="btn">Entrar</button>
+				                        <button type="submit" name="login" class="btn btn-login">Entrar</button>
 				                    </form>
 			                    </div>
 		                    </div>
@@ -89,7 +89,7 @@ include("login/Register.php");
 	                        			<i class="fa fa-pencil"></i>
 	                        		</div>
 	                            </div>
-	                            <div class="form-bottom">
+	                            <div class="form-bottom" style="PADDING: 25px 25px 90px 25px !IMPORTANT;">
 				                    <form role="form" action="" method="post" class="registration-form">
 										<div class="form-group">
 											<label class="sr-only" for="form-register-username">Usuário</label>
@@ -101,7 +101,20 @@ include("login/Register.php");
 											<input type="password" name="password" placeholder="Senha" minlength=5 maxlength="5"
 												   class="form-password form-control" id="form-register-password" required>
 										</div>
-				                        <button type="submit" name="register" class="btn">Registrar</button>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="label" style="font-size: 85% !important; 
+												padding: .2em .4em .3em !important;">
+													<select name="sex" id="sex" class="select">
+														<option value="homem" selected> Homem </option>
+														<option value="mulher">Mulher</option>
+													</select>
+												</label>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<button type="submit" name="register" class="btn">Registrar</button>
+										</div>
 				                    </form>
 			                    </div>
                         	</div>
