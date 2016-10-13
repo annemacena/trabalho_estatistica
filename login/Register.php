@@ -1,28 +1,19 @@
 <?php  
-	   if(isset($_POST["register"])) {
+include("Config.php");
 		   	
-			$username = mysqli_real_escape_string($db,$_POST['username']);
-			$password = mysqli_real_escape_string($db,$_POST['password']); 
-			$sex = mysqli_real_escape_string($db,$_POST['sex']); 
+			$username = $_POST['username'];
+			$password = $_POST['password'];
+			$sex = $_POST['sex'];
 
 			$sql = "SELECT id_usuario FROM tb_usuario WHERE username = '$username'";
-			$result = mysqli_query($db, $sql) or die(mysqli_error($db));
-			$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-			
+			$result = mysqli_query($db, $sql) or die(mysqli_error($db));			
 			$count = mysqli_num_rows($result);
 					
 			if($count == 1) {
-			   echo "<script> window.onload = function(){toastr.error('Opa, usuário já cadastradx!');} </script>";               
+			   echo "400";               
 			}else {			
 				$sql = "INSERT INTO tb_usuario (username, password, sex, hasSimulated, failedLogin) VALUES 
 				('$username', '$password', '$sex' , 0, null)";
-				$result = mysqli_query($db,$sql) or die(mysqli_error($db));
-						
-				if($result) {				
-					echo "<script> window.onload = function(){toastr.success('Registradx com sucesso!');} </script>";
-				}else {
-					echo "<script> window.onload = function(){toastr.error('Ocorreu um erro.'); </script>";
-				}
-			}
-    	}    
+				mysqli_query($db,$sql) or die(mysqli_error($db));
+			}    
  ?>

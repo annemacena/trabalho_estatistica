@@ -5,16 +5,22 @@ if(!isset($_SESSION))
 if(isset($_SESSION['loggedUser'])) {
     header("Location: painel.php");
 }
-
-include("login/Config.php");
-include("login/Register.php");
 ?>
 <!DOCTYPE html>
+<!--
+ * Kestroke Boladão;
+ *
+ * 2016, Universidade Federal de Sergipe - UFS
+ * Arianne, Jusley, Lawrence, Micael.
+ *
+ * Enjoy.
+-->
 <html lang="pt-BR">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="assets/img/icon.png" >
         <title>Trabalho de Estatística</title>
 
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
@@ -55,7 +61,7 @@ include("login/Register.php");
 	                        		</div>
 	                            </div>
 	                            <div class="form-bottom">
-				                    <form role="form" action="ola.php" method="post" class="login-form">
+				                    <form role="form" action="" method="post" class="login-form">
 				                    	<div class="form-group">
 				                    		<label class="sr-only" for="form-username">Usuário</label>
 				                        	<input type="text" name="username" placeholder="Usuário"
@@ -113,7 +119,7 @@ include("login/Register.php");
 											</div>
 										</div>
 										<div class="col-md-6">
-											<button type="submit" name="register" class="btn">Registrar</button>
+											<button type="submit" name="register" class="btn btn-register">Registrar</button>
 										</div>
 				                    </form>
 			                    </div>
