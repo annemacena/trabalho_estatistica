@@ -1,5 +1,5 @@
 # Keystroke Boladão
 Projeto destinado para fins acadêmicos. Universidade Federal de Sergipe.
 ```
-Hospedado em: [http://tstatistic.hol.es/](http://tstatistic.hol.es/)
+Hospedado em: [ds](http://tstatistic.hol.es/)
 ```
