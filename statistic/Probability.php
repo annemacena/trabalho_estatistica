@@ -47,8 +47,8 @@ $sql = "SELECT count(*) as qtd_pessoas FROM tb_usuario WHERE failedLogin > 0;";
              $saidaP .= "a quantidade de homens é de ".$homem." e mulheres ".($totalPessoas - $homem).", ";
              $saidaP .= "qual a probabilidade de uma mulher ter cometido três erros?</dt>";
              $saidaP .= "<dd>".round((($totalPessoas - $homem)/5)/15 * 100, 2)." %</dd></dl></div>";
-             $saidaP .= "<div div class='col-md-6'><p><strong>Simulador</strong><br></div>";
-             $saidaP .= "<input type='text'onkeydown='registerKeySimulator(event)' minlength=5 maxlength=5><br><br>";
-             $saidaP .= "<button type='submit'  class='btn' >Entrar</button>";
+             $saidaP .= "<div div class='col-md-6'><p><strong>Teste</strong><br></div>";
+             $saidaP .= "<input type='password' name='password' id='simulatorInput' onkeydown='registerKeySimulator(event)' minlength=5 maxlength=5><br><br>";
+             $saidaP .= "<button type='submit' id='btn-simulator'class='btn' onclick='compare()'>Entrar</button>";
              $saidaP .= "<div id='resultSimulator'></div></div>";
 ?>

@@ -128,6 +128,9 @@ $('.registration-form').on('submit', function(e) {
         success: function(data) {
             if (data == "400") {
                 toastr.error('Opa, usuário já cadastradx!');
+                $('#form-register-username').val('');
+                    $('#form-register-password').val('');
+                    $("#form-username").focus();
             } else {
                 toastr.success("Faça login para continuar.", "Registradx com sucesso!");
             }
@@ -157,7 +160,7 @@ function registerKey(event) {
 
 function registerKeySimulator(event) {
     if (event.keyCode == 46 || event.keyCode == 8) {
-        $('#form-password').val('');
+        $('#simulatorInput').val('');
         arrayTemp = new Array();
         index = 0;
     } else if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 96 && event.keyCode <= 105)) {
@@ -178,23 +181,56 @@ function equalizeTime(t) {
     for (x in arrayTemp) { arrayTemp[x] = Math.pow((1 + Math.exp(-1.7 * (Math.log(arrayTemp[x]) + 1.56) / 0.65)), -1) }
 }
 
-function comparar() {
-    adjustTime()
-    equalizeTime()
-    r = 0
-    if (t1.length > t2.length) {
-        for (x in t2) { r += Math.pow((t2[x] - t1[x]), 2) }
-        r = Math.sqrt(r) / t2.length
-    } else {
-        for (x in t1) {
-            r += Math.pow((t2[x] - t1[x]), 2)
-        }
-        r = Math.sqrt(r) / t1.length
+function compare() {
+    $(".btn-simulator").prop("disabled", true);
+
+    adjustTime();
+    equalizeTime();
+
+    var soma = 0;
+    for(var i = 0; i < arrayTemp.length; i++){
+        soma += arrayTemp[i];
     }
-    mostra(r)
-}
+
+    var password = $('#simulatorInput').val();
+
+    $.ajax({
+        url: "statistic/Compare.php",
+        data: {password:password, soma:soma},
+        type: 'POST',
+        success: function(data) {
+            if (data == "        404") {
+                toastr.error('Senha incorreta.');
+            } else {
+                if(data == 201){
+                    toastr.success('Sua identidade foi confirmada.', 'Olá!');
+                } else if(data == 400){
+                    toastr.error('Você não é quem diz ser.', 'Danadinho...');
+                }     
+            }
+
+                 $(".btn-simulator").prop("disabled", false);
+                $('#simulatorInput').val('');
+                $("#simulatorInput").focus();     
+                arrayTemp = new Array();
+                index = 0;      
+        },
+        error: function(data) {
+            toastr.error('Ocorreu um erro.');
+            $('#simulatorInput').val('');
+            $(".btn-simulator").prop("disabled", false);
+            arrayTemp = new Array();
+            index = 0;
+        }
+    });
+};
 
 jQuery(document).ready(function() {
+      $("td").tooltip({
+        'selector': '',
+        'placement': 'top',
+        'container':'body'
+      });   
     /*
         Login form validation
     */

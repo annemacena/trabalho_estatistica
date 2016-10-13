@@ -39,6 +39,8 @@ include("statistic/Probability.php");
 		<link rel="stylesheet" href="assets/toastr/toastr.min.css">
         <script src="assets/js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="assets/js/loader.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/toastr/toastr.min.js"></script>
         <script src="assets/js/scripts.js"></script>
    </head>   
    <body>
@@ -102,8 +104,6 @@ include("statistic/Probability.php");
             } else {
                 echo  $saidaP;
             } 
-        ?>
-
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>         
+        ?>      
    </body>   
 </html>

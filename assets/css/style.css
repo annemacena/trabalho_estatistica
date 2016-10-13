@@ -8,6 +8,10 @@ body {
     text-align: center;
 }
 
+div.tooltip-inner {
+    max-width: 350px;
+}
+
 table {
     margin: 0 auto !important;
     width: 70% !important;

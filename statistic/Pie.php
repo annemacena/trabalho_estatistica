@@ -20,7 +20,7 @@ $grafico = array(
     )
 );
 
-$intervals = array('0 - 1','1 - 1.5','1.5 - 2','2 - 2.5','2.5 - 3');
+$intervals = array('0 - 1','1 - 2','2 - 3','3 - 4','4 - 5');
 $array = array();
 $idx = 0;
 
